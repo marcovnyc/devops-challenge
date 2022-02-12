@@ -1,0 +1,39 @@
+version: "2"
+services:
+  django:
+    image: devops-challenge
+    stdin_open: true
+    tty: true
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    environment:
+      - DATABASE_URL=mysql://db:password@db:3306/schooldb
+
+  db:
+    container_name: database
+    image: mysql:5.7
+    volumes:
+       - "mysql:/var/lib/mysql"
+    environment:
+      - MYSQL_DATABASE=schooldb
+      - MYSQL_USER=db
+      - MYSQL_PASSWORD=password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    ports:
+       - '3306:3306'
+
+  nginx:
+    image: nginx:1.17
+    container_name: ngx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - django
+    links:
+      - django
+volumes:
+  mysql:
