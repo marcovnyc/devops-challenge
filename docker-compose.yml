@@ -10,6 +10,7 @@ services:
       - db
     environment:
       - DATABASE_URL=mysql://db:password@db:3306/schooldb
+    restart: always
 
   db:
     container_name: database
@@ -23,6 +24,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     ports:
        - '3306:3306'
+    restart: always
 
   nginx:
     image: nginx:1.17
@@ -35,5 +37,6 @@ services:
       - django
     links:
       - django
+    restart: always
 volumes:
   mysql:
