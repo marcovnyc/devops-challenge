@@ -48,6 +48,12 @@ ubuntu@ip-172-31-93-232:~/devops-challenge$
 
 ```
 
+so you want to play with the database 
+
+```
+docker exec -it devops-challenge_django_1 python schoolapp/manage.py dbshell
+```
+   ## I want to see the site ###
 now visit the site http://34.201.33.233
 
 
